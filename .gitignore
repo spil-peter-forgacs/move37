@@ -2,3 +2,7 @@ Homework_Assignment_Week6/dqn_checkpoints/
 Homework_Assignment_Week6/gym-ple/
 Homework_Assignment_Week6/PyGame-Learning-Environment/
 Homework_Assignment_Week6/.gitignore
+
+Homework_Assignment_Week5/a2c/lib/__pycache__/
+Homework_Assignment_Week5/a2c/runs/
+Homework_Assignment_Week5/a2c/saves/
