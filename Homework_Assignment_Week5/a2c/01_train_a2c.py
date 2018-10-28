@@ -1,10 +1,32 @@
 #!/usr/bin/env python3
+
+'''
+
+Make a Bipedal Robot Walk in a Simulation.
+
+It uses:
+* OpenAI Gym for the environment.
+* Actor-Critic (A2C) method
+
+This solution is based on:
+* Deep Reinforcement Learning Hands-On by Maxim Lapan
+  [https://www.packtpub.com/big-data-and-business-intelligence/deep-reinforcement-learning-hands](https://www.packtpub.com/big-data-and-business-intelligence/deep-reinforcement-learning-hands)
+
+Chapter 14 & Chapter 15:
+* Continuous Action Space, The Actor-Critic (A2C) method
+* Trust Regions – TRPO, PPO, and ACKTR
+
+How to run - Train and play:
+python 01_train_a2c.py -name bipedal --cuda
+python 02_play.py -model saves/a2c-bipedal/<<your data file>>.dat -save 45
+
+'''
+
 import os
 import math
 import ptan
 import time
 import gym
-# import roboschool
 import argparse
 from tensorboardX import SummaryWriter
 
@@ -15,8 +37,11 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-
-# ENV_ID = "RoboschoolHalfCheetah-v1"
+'''
+Base constatnts
+'''
+# OpenAI Gym Bipedal Walker
+# https://github.com/openai/gym/wiki/BipedalWalker-v2
 ENV_ID = "BipedalWalker-v2"
 GAMMA = 0.99
 REWARD_STEPS = 5
@@ -28,17 +53,23 @@ ENVS_COUNT = 16
 
 TEST_ITERS = 1000
 
-
+'''
+Test actor network.
+'''
 def test_net(net, env, count=10, device="cpu"):
     rewards = 0.0
     steps = 0
     for _ in range(count):
+        # Start a new episod.
         obs = env.reset()
         while True:
+            # Observation to action.
             obs_v = ptan.agent.float32_preprocessor([obs]).to(device)
             mu_v = net(obs_v)[0]
             action = mu_v.squeeze(dim=0).data.cpu().numpy()
             action = np.clip(action, -1, 1)
+
+            # Make action.
             obs, reward, done, _ = env.step(action)
             rewards += reward
             steps += 1
@@ -46,14 +77,16 @@ def test_net(net, env, count=10, device="cpu"):
                 break
     return rewards / count, steps / count
 
-
+'''
+Calculate the log probabilty.
+'''
 def calc_logprob(mu_v, logstd_v, actions_v):
     p1 = - ((mu_v - actions_v) ** 2) / (2*torch.exp(logstd_v).clamp(min=1e-3))
     p2 = - torch.log(torch.sqrt(2 * math.pi * torch.exp(logstd_v)))
     return p1 + p2
 
-
 if __name__ == "__main__":
+    # Arguments.
     parser = argparse.ArgumentParser()
     parser.add_argument("--cuda", default=False, action='store_true', help='Enable CUDA')
     parser.add_argument("-n", "--name", required=True, help="Name of the run")
@@ -61,21 +94,27 @@ if __name__ == "__main__":
     args = parser.parse_args()
     device = torch.device("cuda" if args.cuda else "cpu")
 
+    # Saves.
     save_path = os.path.join("saves", "a2c-" + args.name)
     os.makedirs(save_path, exist_ok=True)
 
+    # Creating the environments.
     envs = [gym.make(args.env) for _ in range(ENVS_COUNT)]
     test_env = gym.make(args.env)
 
+    # Actor and Critic networks.
     net_act = model.ModelActor(envs[0].observation_space.shape[0], envs[0].action_space.shape[0]).to(device)
     net_crt = model.ModelCritic(envs[0].observation_space.shape[0]).to(device)
     print(net_act)
     print(net_crt)
 
     writer = SummaryWriter(comment="-a2c_" + args.name)
+
+    # Agent A2C.
     agent = model.AgentA2C(net_act, device=device)
     exp_source = ptan.experience.ExperienceSourceFirstLast(envs, agent, GAMMA, steps_count=REWARD_STEPS)
 
+    # Using Adam optimizer.
     opt_act = optim.Adam(net_act.parameters(), lr=LEARNING_RATE_ACTOR)
     opt_crt = optim.Adam(net_crt.parameters(), lr=LEARNING_RATE_CRITIC)
 
@@ -90,6 +129,7 @@ if __name__ == "__main__":
                     tb_tracker.track("episode_steps", np.mean(steps), step_idx)
                     tracker.reward(np.mean(rewards), step_idx)
 
+                # Test with the actor network.
                 if step_idx % TEST_ITERS == 0:
                     ts = time.time()
                     rewards, steps = test_net(net_act, test_env, device=device)
@@ -113,22 +153,28 @@ if __name__ == "__main__":
                     common.unpack_batch_a2c(batch, net_crt, last_val_gamma=GAMMA ** REWARD_STEPS, device=device)
                 batch.clear()
 
+                # Critic network.
                 opt_crt.zero_grad()
                 value_v = net_crt(states_v)
+                # Calculating the loss.
                 loss_value_v = F.mse_loss(value_v.squeeze(-1), vals_ref_v)
                 loss_value_v.backward()
                 opt_crt.step()
 
+                # Actor network.
                 opt_act.zero_grad()
                 mu_v = net_act(states_v)
                 adv_v = vals_ref_v.unsqueeze(dim=-1) - value_v.detach()
+                # Log probability.
                 log_prob_v = adv_v * calc_logprob(mu_v, net_act.logstd, actions_v)
+                # Calculating the loss and entropy.
                 loss_policy_v = -log_prob_v.mean()
                 entropy_loss_v = ENTROPY_BETA * (-(torch.log(2*math.pi*torch.exp(net_act.logstd)) + 1)/2).mean()
                 loss_v = loss_policy_v + entropy_loss_v
                 loss_v.backward()
                 opt_act.step()
 
+                # Trackers.
                 tb_tracker.track("advantage", adv_v, step_idx)
                 tb_tracker.track("values", value_v, step_idx)
                 tb_tracker.track("batch_rewards", vals_ref_v, step_idx)
@@ -136,4 +182,3 @@ if __name__ == "__main__":
                 tb_tracker.track("loss_policy", loss_policy_v, step_idx)
                 tb_tracker.track("loss_value", loss_value_v, step_idx)
                 tb_tracker.track("loss_total", loss_v, step_idx)
-

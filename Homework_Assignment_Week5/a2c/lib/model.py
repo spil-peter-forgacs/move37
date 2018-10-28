@@ -1,3 +1,9 @@
+'''
+
+Models for A2C
+
+'''
+
 import ptan
 import numpy as np
 import torch
@@ -5,7 +11,9 @@ import torch.nn as nn
 
 HID_SIZE = 64
 
-
+'''
+The actor network
+'''
 class ModelActor(nn.Module):
     def __init__(self, obs_size, act_size):
         super(ModelActor, self).__init__()
@@ -23,7 +31,9 @@ class ModelActor(nn.Module):
     def forward(self, x):
         return self.mu(x)
 
-
+'''
+The critic network
+'''
 class ModelCritic(nn.Module):
     def __init__(self, obs_size):
         super(ModelCritic, self).__init__()
@@ -39,7 +49,10 @@ class ModelCritic(nn.Module):
     def forward(self, x):
         return self.value(x)
 
-
+'''
+The A2C agent.
+Converts states to actions.
+'''
 class AgentA2C(ptan.agent.BaseAgent):
     def __init__(self, net, device="cpu"):
         self.net = net

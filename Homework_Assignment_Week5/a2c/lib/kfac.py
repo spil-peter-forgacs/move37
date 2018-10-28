@@ -1,4 +1,13 @@
 # Code taken here https://github.com/ikostrikov/pytorch-a2c-ppo-acktr/blob/master/kfac.py (with minor modifications)
+
+'''
+
+Kronecker-factored Approximate Curvature (KFAC)
+https://arxiv.org/abs/1503.05671
+An approximate natural gradient method
+
+'''
+
 import math
 
 import torch
