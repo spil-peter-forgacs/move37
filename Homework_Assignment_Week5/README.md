@@ -29,6 +29,6 @@ Chapter 14 & Chapter 15:
 #### How to run
 ```
 cd Homework_Assignment_Week5/a2c/
-python 01_train_a2c.py -name bipedal --cuda
-python 02_play.py -model saves/a2c-bipedal/<<your data file>>.dat -save 45
+python 01_train_a2c.py --name bipedal --cuda
+python 02_play.py --model saves/a2c-bipedal/<<your data file>>.dat --save 45
 ```
