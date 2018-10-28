@@ -1,3 +1,9 @@
+'''
+This is the original solution of Move37 Bipedal Walker.
+It is not part of the assignment.
+This is the simple copy of https://github.com/colinskow/move37/blob/master/ars/ars.py
+'''
+
 import os
 import numpy as np
 import gym
