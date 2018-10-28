@@ -11,6 +11,7 @@ This solution is based on:
 
 ### How to run
 ```
+cd Homework_Assignment_Week2
 python DeterministicFrozenLake.py
 ```
 
@@ -21,6 +22,7 @@ This solution is based on:
 
 ### How to run
 ```
+cd Homework_Assignment_Week3
 python blackjack.py
 
 python CliffWalking.py
@@ -28,18 +30,37 @@ python CliffWalking.py
 
 ## Homework_Assignment_Week5
 
-This solution is based:
+This assigment has two solutions:
+* DQN
+* A2C
+
+### DQN
+
+This solution is based on:
 * [https://keon.io/deep-q-learning/](https://keon.io/deep-q-learning/)
 * [https://github.com/keon/deep-q-learning/blob/master/dqn.py](https://github.com/keon/deep-q-learning/blob/master/dqn.py)
 
+#### How to run
 ```
+cd Homework_Assignment_Week5/dqn/
 python dqn.py
 ```
 
-/home/pepe/pepe/books7/Deep-Reinforcement-Learning-Hands-On-master/Chapter15/
+### A2C
+
+This solution is based on:
+* Deep Reinforcement Learning Hands-On by Maxim Lapan  
+  [https://www.packtpub.com/big-data-and-business-intelligence/deep-reinforcement-learning-hands](https://www.packtpub.com/big-data-and-business-intelligence/deep-reinforcement-learning-hands)
+
+Chapter 14 & Chapter 15:
+* Continuous Action Space, The Actor-Critic (A2C) method
+* Trust Regions – TRPO, PPO, and ACKTR
+
+#### How to run
 ```
-python 01_train_a2c.py -n pe2 --cuda
-python 02_play.py -m saves/a2c-pe1/best_-92.466_25000.dat -s 45
+cd Homework_Assignment_Week5/a2c/
+python 01_train_a2c.py -name bipedal --cuda
+python 02_play.py -model saves/a2c-bipedal/<<your data file>>.dat -save 45
 ```
 
 ## Homework_Assignment_Week6
