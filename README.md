@@ -89,12 +89,40 @@ This solution is based on:
 * [https://www.youtube.com/watch?v=h2Uhla6nLDU&feature=youtu.be](https://www.youtube.com/watch?v=h2Uhla6nLDU&feature=youtu.be)  
   [https://github.com/f-prime/FlappyBird/blob/master/flappybird.py](https://github.com/f-prime/FlappyBird/blob/master/flappybird.py)
 
+### How to run
 ```
 cd Homework_Assignment_Week7/FlappyBird/
 python flappybird.py
 ```
 
+### How to run
 ```
 cd Homework_Assignment_Week7/NeuroEvolution-Flappy-Bird/
 python flappy.py
+```
+
+## Homework_Assignment_Week8
+
+### Solution 1: REINFORCE
+
+This solution is based on:
+* [https://github.com/simoninithomas/Deep_reinforcement_learning_Course/blob/master/Policy%20Gradients/Cartpole/Cartpole%20REINFORCE%20Monte%20Carlo%20Policy%20Gradients.ipynb](https://github.com/simoninithomas/Deep_reinforcement_learning_Course/blob/master/Policy%20Gradients/Cartpole/Cartpole%20REINFORCE%20Monte%20Carlo%20Policy%20Gradients.ipynb)
+
+#### How to run
+```
+cd Homework_Assignment_Week8/Deep_reinforcement_learning_Course/
+jupyter notebook Lunar\ Lander\ REINFORCE\ Monte\ Carlo\ Policy\ Gradients.ipynb
+```
+
+### Solution 2: REINFORCE
+
+This solution is based on:
+* [https://leimao.github.io/article/REINFORCE-Policy-Gradient/](https://leimao.github.io/article/REINFORCE-Policy-Gradient/)
+* [https://github.com/leimao/OpenAI_Gym_AI/tree/master/LunarLander-v2/REINFORCE/2017-05-24-v1](https://github.com/leimao/OpenAI_Gym_AI/tree/master/LunarLander-v2/REINFORCE/2017-05-24-v1)
+
+#### How to run
+```
+cd Homework_Assignment_Week8/OpenAI_Gym_AI
+python OpenAI.py -m train
+python OpenAI.py -m test
 ```
