@@ -126,3 +126,10 @@ cd Homework_Assignment_Week8/OpenAI_Gym_AI
 python OpenAI.py -m train
 python OpenAI.py -m test
 ```
+
+## Homework_Assignment_Week9
+
+### Re-implement A2C but in Tensorflow
+
+This solution is based on:
+* [https://github.com/ikostrikov/pytorch-a3c](https://github.com/ikostrikov/pytorch-a3c)
