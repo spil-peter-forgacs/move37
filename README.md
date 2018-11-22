@@ -151,4 +151,8 @@ python3 ddpg_tag.py --env simple_tag_guided --experiment_prefix ./results/ddpg_1
 python3 ddpg_tag.py --env simple_tag_guided_1v2 --experiment_prefix ./results/ddpg_1v2/
 
 python3 ddpg_tag.py --env simple_tag_guided_2v1 --experiment_prefix ./results/ddpg_2v1/
+
+python3 ddpg_tag.py --env simple_tag_guided_2v2 --experiment_prefix ./results/ddpg_2v2/
 ```
+
+Use ` --render` parameter for rendering the process.
