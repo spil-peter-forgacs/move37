@@ -4,10 +4,17 @@ import pathlib
 import general_utilities
 
 
+"""
+Deep Deterministic Policy Gradients (DDPG)
+"""
 class Actor:
+    """
+    DDPG Actor
+    """
 
     def __init__(self, scope, session, n_actions, action_bound,
                  eval_states, target_states, learning_rate=0.001, tau=0.01):
+        # Basic value
         self.session = session
         self.n_actions = n_actions
         self.action_bound = action_bound
@@ -16,6 +23,7 @@ class Actor:
         self.learning_rate = learning_rate
         self.scope = scope
 
+        # Buils the network
         with tf.variable_scope(self.scope):
             self.eval_actions = self.build_network(self.eval_states,
                                                    scope='eval', trainable=True)
@@ -64,10 +72,14 @@ class Actor:
 
 
 class Critic:
+    """
+    DDPG Critic
+    """
 
     def __init__(self, scope, session, n_actions, actor_eval_actions,
                  actor_target_actions, eval_states, target_states,
                  rewards, learning_rate=0.001, gamma=0.9, tau=0.01):
+        # Basic value
         self.session = session
         self.n_actions = n_actions
         self.actor_eval_actions = actor_eval_actions
@@ -76,6 +88,7 @@ class Critic:
         self.target_states = target_states
         self.rewards = rewards
 
+        # Buils the network
         with tf.variable_scope(scope):
             self.eval_values = self.build_network(self.eval_states,
                                                   self.actor_eval_actions,

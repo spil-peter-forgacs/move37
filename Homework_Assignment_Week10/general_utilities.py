@@ -38,6 +38,9 @@ def save_dqn_weights(dqns, weights_filename_prefix, weights_filename_extension="
         dqn.save(dqn_filename)
 
 def dump_dict_as_json(dict_to_dump, filename):
+    """
+    Dump dict to json
+    """
     p = pathlib.Path(filename)
     if len(p.parts) > 1:
         dump_dirs = pathlib.Path(*p.parts[:-1])
@@ -63,6 +66,7 @@ class Time_Series_Statistics_Store(object):
         if len(data) != len(self.header):
             raise ValueError("Data length does not match header")
         self.statistics.append(data)
+    # Dump data to csv file.
     def dump(self, dump_filename="statistics.csv"):
         p = pathlib.Path(dump_filename)
         if len(p.parts) > 1:

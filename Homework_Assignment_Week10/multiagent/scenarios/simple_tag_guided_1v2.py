@@ -2,8 +2,9 @@ import numpy as np
 from multiagent.core import World, Agent, Landmark
 from multiagent.scenario import BaseScenario
 
-
+# Simple tag guided with one good agent and with two adversaries.
 class Scenario(BaseScenario):
+    # Setting properties, creating agents and making initial conditions.
     def make_world(self):
         world = World()
         # set any world properties first
@@ -40,7 +41,7 @@ class Scenario(BaseScenario):
         for i, agent in enumerate(world.agents):
             agent.color = np.array(
                 [0.35, 0.85, 0.35]) if not agent.adversary else np.array([0.85, 0.35, 0.35])
-            # random properties for landmarks
+        # random properties for landmarks
         for i, landmark in enumerate(world.landmarks):
             landmark.color = np.array([0.25, 0.25, 0.25])
         # set random initial states
@@ -65,6 +66,7 @@ class Scenario(BaseScenario):
         else:
             return 0
 
+    # Checking collisions between agents.
     def is_collision(self, agent1, agent2):
         delta_pos = agent1.state.p_pos - agent2.state.p_pos
         dist = np.sqrt(np.sum(np.square(delta_pos)))
@@ -79,12 +81,14 @@ class Scenario(BaseScenario):
     def adversaries(self, world):
         return [agent for agent in world.agents if agent.adversary]
 
+    # return all rewards
     def reward(self, agent, world):
         # Agents are rewarded based on minimum agent distance to each landmark
         main_reward = self.adversary_reward(
             agent, world) if agent.adversary else self.agent_reward(agent, world)
         return main_reward
 
+    # return agent reward
     def agent_reward(self, agent, world):
         # Agents are negatively rewarded if caught by adversaries
         rew = 0
@@ -115,6 +119,7 @@ class Scenario(BaseScenario):
 
         return rew
 
+    # return adversary reward
     def adversary_reward(self, agent, world):
         # Adversaries are rewarded for collisions with agents
         rew = 0
@@ -135,6 +140,7 @@ class Scenario(BaseScenario):
                         rew += 100
         return rew
 
+    # Communication between agents
     def observation(self, agent, world):
         # get positions of all entities in this agent's reference frame
         entity_pos = []

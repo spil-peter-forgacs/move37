@@ -3,17 +3,20 @@ import random
 from collections import deque
 
 
+# Store and recall memories
 class Memory:
     def __init__(self, capacity):
         self.data = deque(maxlen=capacity)
         self.pointer = 0
 
+    # Store memory
     def remember(self, state, action, reward, state_next, done):
         experience = (state, action, reward, state_next, done)
         self.data.append(experience)
         if self.pointer < len(self.data):
             self.pointer += 1
 
+    # Sample memory
     def sample(self, batch, agents=1):
         """
         If 1 agent, assumes no data about other agents.

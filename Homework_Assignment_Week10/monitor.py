@@ -1,6 +1,6 @@
 import gym
 
-
+# Recording stats and videos after each steps, if enabled.
 class MyMonitor(gym.wrappers.Monitor):
 
     def _after_step(self, observation, reward, done, info):

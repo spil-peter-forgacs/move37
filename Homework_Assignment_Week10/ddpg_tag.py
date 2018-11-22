@@ -34,6 +34,7 @@ def play(episodes, is_render, is_testing, checkpoint_interval,
     statistics = general_utilities.Time_Series_Statistics_Store(
         statistics_header)
 
+    # run episodes
     for episode in range(args.episodes):
         states = env.reset()
         episode_losses = np.zeros(env.n)
@@ -105,6 +106,7 @@ def play(episodes, is_render, is_testing, checkpoint_interval,
                     print(statistics.summarize_last())
                 break
 
+        # dumping data
         if episode % checkpoint_interval == 0:
             statistics.dump("{}_{}.csv".format(
                 csv_filename_prefix, episode))
@@ -121,6 +123,7 @@ def play(episodes, is_render, is_testing, checkpoint_interval,
 
 
 if __name__ == '__main__':
+    # arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--env', default='simple_tag_guided', type=str)
     parser.add_argument('--video_dir', default='videos/', type=str)
@@ -236,6 +239,7 @@ if __name__ == '__main__':
     critics = []
     actors_noise = []
     memories = []
+    # actors & critics
     for i in range(env.n):
         n_action = env.action_space[i].n
         state_size = env.observation_space[i].shape[0]
@@ -261,6 +265,7 @@ if __name__ == '__main__':
     session.run(tf.global_variables_initializer())
     saver = tf.train.Saver(max_to_keep=10000000)
 
+    # restore from checkpoint
     if args.load_weights_from_file != "":
         saver.restore(session, args.load_weights_from_file)
         print("restoring from checkpoint {}".format(
