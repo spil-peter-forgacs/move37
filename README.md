@@ -155,7 +155,7 @@ This solution is based on:
 
 #### How to run
 
-- To install, `cd Homework_Assignment_Week10/tensorflow1_multiagent` into the directory and type `pip install -e .`
+- To install, `cd` into the directory (`Homework_Assignment_Week10/tensorflow1_multiagent`) and type `pip install -e .`
 
 - Known dependencies: Python (3.5.4), OpenAI gym (0.9.5), numpy (1.13.1)
 
@@ -189,27 +189,27 @@ Use ` --render` parameter for rendering the process.
 Here are additional MADDPG solutions for particle environment written in Tensorflow and Pytorch.
 
 #### Tensorflow 2
-`cd Homework_Assignment_Week10/tensorflow2_maddpg`
+`Homework_Assignment_Week10/tensorflow2_maddpg`
 
 This solution is based on:
 * [https://github.com/openai/maddpg](https://github.com/openai/maddpg)
 * [https://github.com/google/maddpg-replication](https://github.com/google/maddpg-replication)
 
 #### PyTorch 1
-`cd Homework_Assignment_Week10/pytorch1_maddpg`
+`Homework_Assignment_Week10/pytorch1_maddpg`
 
 This solution is based on:
 * [https://github.com/xuehy/pytorch-maddpg](https://github.com/xuehy/pytorch-maddpg)
 * [https://github.com/sisl/MADRL](https://github.com/sisl/MADRL)
 
 #### PyTorch 2
-`cd Homework_Assignment_Week10/pytorch2_maddpg`
+`Homework_Assignment_Week10/pytorch2_maddpg`
 
 This solution is based on:
 * [https://github.com/shariqiqbal2810/maddpg-pytorch](https://github.com/shariqiqbal2810/maddpg-pytorch)
 
 #### PyTorch 3
-`cd Homework_Assignment_Week10/pytorch3_maddpg_mpe`
+`Homework_Assignment_Week10/pytorch3_maddpg_mpe`
 
 This solution is based on:
 * [https://github.com/xuemei-ye/maddpg-mpe](https://github.com/xuemei-ye/maddpg-mpe)
