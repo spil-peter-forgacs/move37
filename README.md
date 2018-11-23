@@ -186,7 +186,7 @@ Use ` --render` parameter for rendering the process.
 ### Other solutions
 
 **Please, use the solution above for testing.**  
-Here are additional codes related written in Tensorflow and Pytorch.
+Here are additional MADDPG solutions for particle environment written in Tensorflow and Pytorch.
 
 #### Tensorflow 2
 `cd Homework_Assignment_Week10/tensorflow2_maddpg`
