@@ -9,6 +9,7 @@ from maddpg.trainer.replay_buffer import ReplayBuffer
 
 
 def discount_with_dones(rewards, dones, gamma):
+    """Return discounted rewards"""
     discounted = []
     r = 0
     for reward, done in zip(rewards[::-1], dones[::-1]):

@@ -37,6 +37,9 @@ def complex_map(xs, ys):
 
 
 def gen_map(xs, ys, n_obs, center_bounds=[0.0, 1.0], length_bounds=[0.1,0.5], gmap=None):
+    """
+    Geneate map
+    """
     cl, cu = center_bounds
     ll, lu = length_bounds
     if gmap is None: gmap = np.zeros((xs, ys), dtype=np.int32)
@@ -104,9 +107,6 @@ def simple_soccer_map(xs=6, ys=9):
     return smap
 
 
-
 def cross_map(xs, ys):
     pass
-
-
 

@@ -61,6 +61,7 @@ def make_env(scenario_name, arglist, benchmark=False):
     return env
 
 def get_trainers(env, num_adversaries, obs_shape_n, arglist):
+    """Create and get the trainers"""
     trainers = []
     model = mlp_model
     trainer = MADDPGAgentTrainer

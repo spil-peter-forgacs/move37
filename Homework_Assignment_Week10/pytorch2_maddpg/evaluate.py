@@ -52,6 +52,7 @@ def run(config):
             if elapsed < ifi:
                 time.sleep(ifi - elapsed)
             env.render('human')
+        # Save gifs
         if config.save_gifs:
             gif_num = 0
             while (gif_path / ('%i_%i.gif' % (gif_num, ep_i))).exists():

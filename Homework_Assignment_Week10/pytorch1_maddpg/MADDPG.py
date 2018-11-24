@@ -25,7 +25,10 @@ def hard_update(target, source):
 class MADDPG:
     def __init__(self, n_agents, dim_obs, dim_act, batch_size,
                  capacity, episodes_before_train):
+        # Create basic parameters.
+        # Actors
         self.actors = [Actor(dim_obs, dim_act) for i in range(n_agents)]
+        # Critics
         self.critics = [Critic(n_agents, dim_obs,
                                dim_act) for i in range(n_agents)]
         self.actors_target = deepcopy(self.actors)

@@ -16,13 +16,16 @@ class ReplayBuffer(object):
         self._next_idx = 0
 
     def __len__(self):
+        """Storage length"""
         return len(self._storage)
 
     def clear(self):
+        """Clear storage"""
         self._storage = []
         self._next_idx = 0
 
     def add(self, obs_t, action, reward, obs_tp1, done):
+        """Add to storage"""
         data = (obs_t, action, reward, obs_tp1, done)
 
         if self._next_idx >= len(self._storage):
